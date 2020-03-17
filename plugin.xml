@@ -129,8 +129,8 @@
     <!-- ios -->
     <platform name="ios">
         <config-file target="config.xml" parent="/*">
-            <feature name="Contacts">
-                <param name="ios-package" value="CDVContacts"/>
+            <feature name="ContactsService">
+                <param name="ios-package" value="ContactsService"/>
             </feature>
         </config-file>
 
@@ -142,14 +142,7 @@
             <merges target="Contact" />
         </js-module>
 
-        <header-file src="src/ios/CDVContacts.h" />
-        <source-file src="src/ios/CDVContacts.m" />
-        <header-file src="src/ios/CDVContact.h" />
-        <source-file src="src/ios/CDVContact.m" />
-
-        <framework src="AddressBook.framework" weak="true" />
-        <framework src="AddressBookUI.framework" weak="true" />
-        <framework src="CoreGraphics.framework" />
+        <source-file src="src/ios/ContactsService.swift" />
     </platform>
 
     <!-- Browser -->

@@ -50,11 +50,36 @@ var contacts = {
             // missing 'options' param means return all contacts
             options = options || { filter: '', multiple: true };
             var win = function(result) {
-                var cs = [];
-                for (var i = 0, l = result.length; i < l; i++) {
-                    cs.push(convertUtils.toCordovaFormat(contacts.create(result[i])));
+                if (typeof result === 'string') {
+                    var json = JSON.parse(result);
+
+                    if (json.iosType) {
+                        var source = json.contactModels.map(function(model) {
+                            var contact = new Contact();
+                            contact.displayName = model.fullName;
+                            contact.phoneNumbers = model.phoneNumbers.map(function(number) {
+                                return { value: number };
+                            });
+                            contact.id = model.id;
+                            contact.photos = model.avatarIconString ? [{ value: model.avatarIconString }] : null;
+
+                            return contact;
+                        });
+
+                        successCB(source);
+                        return;
+                    }
+
+                    successCB([]);
+                } else {
+                    var source = result;
+                    var cs = [];
+                    for (var i = 0, l = source.length; i < l; i++) {
+                        cs.push(convertUtils.toCordovaFormat(contacts.create(source[i])));
+                    }
+
+                    successCB(cs);
                 }
-                successCB(cs);
             };
             exec(win, errorCB, "Contacts", "search", [fields, options]);
         }
