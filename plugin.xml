@@ -79,7 +79,7 @@
     <!-- android -->
     <platform name="android">
         <config-file target="res/xml/config.xml" parent="/*">
-            <feature name="Contacts">
+            <feature name="ContactsService">
                 <param name="android-package" value="org.apache.cordova.contacts.ContactManager"/>
             </feature>
         </config-file>

@@ -81,7 +81,7 @@ var contacts = {
                     successCB(cs);
                 }
             };
-            exec(win, errorCB, "Contacts", "search", [fields, options]);
+            exec(win, errorCB, "ContactsService", "search", [fields, options]);
         }
     },
     
